@@ -1,7 +1,8 @@
 class MovingPlatform(Platform):
     
     def __init__(self, sprite_sheet_data):
- 
+        
+        # Call Parent class (Sprite) constructor
         super().__init__(sprite_sheet_data)
 
         # Controls horizontal velocity of the platform
@@ -67,8 +68,8 @@ class MovingPlatform(Platform):
 
 ''' Custom Horizontal moving platform example
 
-    # Create platform with its (width,height)
-    block = MovingPlatform(80,40)
+    # Create platform with its (designated sprite)
+    block = platforms.MovingPlatforms(platforms.[Insert Sprite Name Here])
 
     # Set platform's current location 
     block.rect.x = 1020
