@@ -17,7 +17,8 @@ class MovingPlatform(Platform):
         self.boundary_left = 0
         # Rightmost limit of a horizontal moving platform
         self.boundary_right = 0
- 
+        
+        # Player/level references
         self.level = None
         self.player = None
  
@@ -83,6 +84,8 @@ class MovingPlatform(Platform):
     # Reference to player/level
     block.player = self.player
     block.level = self
+    
+    # Add to list of platforms
     self.platform_list.add(block)     '''
 
 ''' Custom Vertical moving platform: only changes are that
