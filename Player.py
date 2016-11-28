@@ -2,7 +2,7 @@ import pygame
 
 RED = (255, 0, 0)
 SCREEN_HEIGHT = 600
-
+MOVEMENT_SPEED = 5
 
 class Player(pygame.sprite.Sprite):
 	"""
@@ -26,8 +26,9 @@ class Player(pygame.sprite.Sprite):
 		self.change_x = 0
 		self.change_y = 0
 
-		# Initialize movement counter and direction.
+		# Initialize movement counter, boolean and direction.
 		self.move_count = 0
+		self.is_moving = False
 		self.facing_right = True
  
 		# List of sprites we can bump against.
@@ -65,6 +66,20 @@ class Player(pygame.sprite.Sprite):
  
 			# Stop our vertical movement
 			self.change_y = 0
+
+		# Animation
+		if self.is_moving :
+			self.move_count += 1
+			if self.move_count == 5 :
+				if self.facing_right : self.image = pygame.image.load("Assets/Player/Guy2Right.png")
+				else : self.image = pygame.image.load("Assets/Player/Guy2Left.png")
+			elif self.move_count == 10:
+				if self.facing_right : self.image = pygame.image.load("Assets/Player/Guy3Right.png")
+				else : self.image = pygame.image.load("Assets/Player/Guy3Left.png")
+			elif self.move_count == 15 :
+				if self.facing_right : self.image = pygame.image.load("Assets/Player/Guy1Right.png")
+				else : self.image = pygame.image.load("Assets/Player/Guy1Left.png")
+				self.move_count = 0
  
 	def calc_grav(self):
 		""" Calculate effect of gravity. """
@@ -93,29 +108,20 @@ class Player(pygame.sprite.Sprite):
 			self.change_y = -10
  
 	def go_left(self):
-		self.change_x = -6
-
-		if (self.facing_right) :
-			# Switch directions.
-			self.facing_right = False
-			self.image = pygame.image.load("Assets/Player/Guy1Left.png")
-			self.move_count = 0
-		else :
-			# Keep moving in the same direction.
-			self.move_count += 1
-			if self.move_count == 5 :
-				self.image = pygame.image.load("Assets/Player/Guy2Left.png")
-			elif self.move_count == 10:
-				self.image = pygame.image.load("Assets/Player/Guy3Left.png")
-			elif self.move_count == 15 :
-				self.image = pygame.image.load("Assets/Player/Guy1Left.png")
-				self.move_count = 0
-		print("Left", self.move_count, self.facing_right)
+		self.change_x = -MOVEMENT_SPEED
+		self.facing_right = False
+		self.image = pygame.image.load("Assets/Player/Guy1Left.png")
+		self.is_moving = True
  
 	def go_right(self):
-		self.change_x = 6
+		self.change_x = MOVEMENT_SPEED
 		self.facing_right = True
+		self.image = pygame.image.load("Assets/Player/Guy1Right.png")
+		self.is_moving = True
 
 	def stop(self):
 		self.change_x = 0
-
+		self.move_count = 0
+		self.is_moving = False
+		if self.facing_right : self.image = pygame.image.load("Assets/Player/Guy1Right.png")
+		else : self.image = pygame.image.load("Assets/Player/Guy1Left.png")

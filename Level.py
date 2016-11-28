@@ -33,24 +33,16 @@ class Level():
 		self.platform_list.draw(screen)
 		self.enemy_list.draw(screen)
  
+ 	# Shifts th world left/right and up/down based on the player's movement.
 	def shift_world(self, shift_x, shift_y):
-		""" When the user moves left/right and we need to scroll
-		everything: """
- 
 		# Keep track of the shift amount
-		self.world_shift_x += shift_x
-		self.world_shift_y += shift_y
+		self.world_shift_x -= shift_x
+		self.world_shift_y -= shift_y
  
-		# Go through all the sprite lists and shift
-		for platform in self.platform_list:
-			platform.rect.x += shift_x
- 
-		for enemy in self.enemy_list:
-			enemy.rect.x += shift_x
-
-		# Go through all the sprite lists and shift
-		for platform in self.platform_list:
-			platform.rect.y += shift_y
- 
-		for enemy in self.enemy_list:
-			enemy.rect.y += shift_y
+		# Go through all the sprite lists and shift.
+		for platform in self.platform_list :
+			platform.rect.x -= shift_x
+			platform.rect.y -= shift_y
+		for enemy in self.enemy_list :
+			enemy.rect.x -= shift_x
+			enemy.rect.y -= shift_y

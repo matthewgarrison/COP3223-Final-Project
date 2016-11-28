@@ -2,6 +2,11 @@ from Level import Level
 from Platform import Platform
 from Background import Background
 
+LEFT_EDGE = 0
+RIGHT_EDGE = 2500
+TOP_EDGE = 0
+BOTTOM_EDGE = 500
+
 # Create platforms for the level
 class Level_1(Level):
 	""" Definition for level 2. """

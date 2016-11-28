@@ -7,8 +7,8 @@ from Level_2 import Level_2
 
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 500
-SHIFT_HORIZONTAL = 120
-SHIFT_VERTICAL = 60
+SHIFT_HORIZONTAL = 250
+SHIFT_VERTICAL = 100
 SHIFT_RIGHT_BOUND = SCREEN_WIDTH - SHIFT_HORIZONTAL
 SHIFT_LEFT_BOUND = SHIFT_HORIZONTAL
 SHIFT_UP_BOUND = SCREEN_HEIGHT - SHIFT_VERTICAL
@@ -80,25 +80,25 @@ def main():
 		if player.rect.right > SHIFT_RIGHT_BOUND:
 			diff = player.rect.right - SHIFT_RIGHT_BOUND
 			player.rect.right = SHIFT_RIGHT_BOUND
-			current_level.shift_world(-diff, 0)
+			current_level.shift_world(diff, 0)
 
 		# If the player gets near the left side, shift the world right (+x)
 		if player.rect.left < SHIFT_LEFT_BOUND:
 			diff = SHIFT_LEFT_BOUND - player.rect.left
 			player.rect.left = SHIFT_LEFT_BOUND
-			current_level.shift_world(diff, 0)
+			current_level.shift_world(-diff, 0)
 
 		# If the player gets near the top, shift the world up (-y)
 		if player.rect.top > SHIFT_UP_BOUND:
 			diff = player.rect.top - SHIFT_UP_BOUND
 			player.rect.top = SHIFT_UP_BOUND
-			current_level.shift_world(0, -diff)
+			current_level.shift_world(0, diff)
 
 		# If the player gets near the bottom, shift the world down (+y)
 		if player.rect.bottom < SHIFT_DOWN_BOUND:
 			diff = SHIFT_DOWN_BOUND - player.rect.left
 			player.rect.bottom = SHIFT_DOWN_BOUND
-			current_level.shift_world(0, diff)
+			current_level.shift_world(0, -diff)
 
 		# If the player gets to the end of the level, go to the next level
 		'''current_position = player.rect.x + current_level.world_shift
