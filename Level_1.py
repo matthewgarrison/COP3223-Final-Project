@@ -1,48 +1,65 @@
 from Level import Level
 from Platform import Platform
 from Background import Background
+from Portal import Portal
 
-LEFT_EDGE = 0
-RIGHT_EDGE = 2500
-TOP_EDGE = 0
-BOTTOM_EDGE = 500
-
-# Create platforms for the level
 class Level_1(Level):
-	""" Definition for level 2. """
 	
-	def __init__(self, player):
-		""" Create level 1. """
-		
-		# Call the parent constructor
+	def __init__(self, player, screen_wdith, screen_height):		
+		# Call the parent constructor.
 		Level.__init__(self, player)
 
-		self.level_limit = -1000
+		# The borders of the level.
+		self.left_edge = 0
+		self.right_edge = 4000
+		self.top_edge = -500
+		self.bottom_edge = 1000
+		# Where the camera stops moving on this level.
+		self.shift_left_bound = self.left_edge + (screen_wdith/2)
+		self.shift_right_bound = self.right_edge - (screen_wdith/2)
+		self.shift_up_bound = self.top_edge + (screen_height/2)
+		self.shift_down_bound = self.bottom_edge - (screen_height/2)
+
+		# Where the player starts the level.
+		self.start_x = 20
+		self.start_y = 212
+
+		# The portal to the next level.
+		self.portal = Portal(210, 288)
+		self.portal_list.add(self.portal)
 		
-		# Array with type of platform, and x, y location of the platform.
-		level = [[340, 250],
-			[410, 250],
-			[480, 250],
-			[550, 250],
-			[620, 250],
-			[690, 250],
-			[760, 250],
+		# 2D array, containing the x and y coordinates and type for each platform.
+		platforms = [
+			[0, 288, 0],
+			[70, 288, 1],
+			[140, 288, 1],
+			[210, 288, 1],
+			[280, 288, 1],
+			[350, 288, 1],
+			[420, 288, 1],
+			[490, 288, 1],
+			[560, 288, 1],
+			[630, 288, 1],
+			[700, 288, 1],
+			[770, 288, 2],
 
-			[830, 250],
-			[900, 250],
-			[970, 250],
-			[1040, 250],
-			[1110, 250],
-			[1180, 250],
-			[1250, 250],
+			[900, 350, 0],
+			[970, 350, 2],
 
-			[900, 320]
+			[1000, 435, 0],
+			[1070, 435, 1],
+			[1140, 435, 1],
+			[1210, 435, 1],
+			[1280, 435, 1],
+			[1350, 435, 1],
+			[1420, 435, 1],
+			[1490, 435, 1],
+			[1560, 435, 2]
 			]
 
-		# Go through the array above and add platforms.
-		for platform in level:
-			block = Platform()
-			block.rect.x = platform[0]
-			block.rect.y = platform[1]
-			block.player = self.player
-			self.platform_list.add(block)
+		# Go through the array above and create the platforms.
+		for temp in platforms:
+			platform = Platform(temp[0], temp[1], temp[2])
+			platform.player = self.player
+			#print(block.rect.x, block.rect.y)
+			self.platform_list.add(platform)
