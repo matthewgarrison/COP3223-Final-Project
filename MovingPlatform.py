@@ -1,3 +1,5 @@
+import pygame
+
 class MovingPlatform(Platform):
     
     def __init__(self, x, y, type):
