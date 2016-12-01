@@ -7,7 +7,7 @@ class MovingPlatform(Platform):
     def __init__(self, x, y, type):
  
         super().__init__(x, y, type)
-
+        
         # Controls moving platform velocity
         self.change_x = 0
         self.change_y = 0
@@ -32,7 +32,7 @@ class MovingPlatform(Platform):
         # Check if player collides with the platform
         hit = pygame.sprite.collide_rect(self, self.player)
         if hit:
-           # If player is moving right, set right side to left side of item hit
+            # If player is moving right, set right side to left side of item hit
             if self.change_x < 0:
                 self.player.rect.right = self.rect.left
             else:
