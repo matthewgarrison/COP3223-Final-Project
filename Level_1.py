@@ -1,6 +1,5 @@
 from Level import Level
 from Platform import Platform
-from MovingPlatform import MovingPlatform
 from Background import Background
 from Portal import Portal
 
@@ -60,9 +59,11 @@ class Level_1(Level):
 
 			[1880, 450, 0],
 			[1950, 450, 1],
-			[2020, 450, 2],
+			[2020, 450, 1],
+			[2090, 450, 2],
 
-			[2400, 520, 0],
+			[2330, 520, 0],
+			[2400, 520, 1],
 			[2470, 520, 1],
 			[2540, 520, 1],
 			[2610, 520, 1],
@@ -95,19 +96,6 @@ class Level_1(Level):
 			platform.player = self.player
 			#print(block.rect.x, block.rect.y)
 			self.platform_list.add(platform)
-		
-		
-		# 2D array, containing the type, direction, min/max values, and other coordinate for each moving platform.
-		moving_platforms = [
-			[0, True, 2050, 2820, 520]
-			]
-		
-		# Go through the array above and create the moving platforms.
-		for temp in moving_platforms:
-			platform = MovingPlatform(temp[0], temp[1], temp[2], temp[3], temp[4])
-			platform.player = self.player
-			self.platform_list.add(platform)
-
 		
 				
 
