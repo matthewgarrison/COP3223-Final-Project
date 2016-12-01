@@ -1,5 +1,6 @@
 from Level import Level
 from Platform import Platform
+from MovingPlatform import MovingPlatform
 from Background import Background
 from Portal import Portal
 
@@ -25,7 +26,7 @@ class Level_1(Level):
 		self.start_y = 212
 
 		# The portal to the next level.
-		self.portal = Portal(210, 288)
+		self.portal = Portal(3550, 198)
 		self.portal_list.add(self.portal)
 		
 		# 2D array, containing the x and y coordinates and type for each platform.
@@ -61,35 +62,54 @@ class Level_1(Level):
 			[1950, 450, 1],
 			[2020, 450, 2],
 
-			[2100, 520, 0],
-			[2170, 520, 1],
-			[2240, 520, 1],
-			[2310, 520, 1],
-			[2380, 520, 1],
-			[2450, 520, 1],
-			[2520, 520, 2],
+			[2400, 520, 0],
+			[2470, 520, 1],
+			[2540, 520, 1],
+			[2610, 520, 1],
+			[2680, 520, 1],
+			[2750, 520, 1],
+			[2820, 520, 2],
 
-			[2610, 450, 0],
-			[2680, 450, 2],
+			[2910, 450, 0],
+			[2980, 450, 2],
 
-			[2770, 375, 0],
-			[2840, 375, 1],
-			[2910, 375, 1],
-			[2980, 375, 1],
-			[3050, 375, 1],
-			[3120, 375, 1],
-			[3190, 375, 1],
-			[3260, 375, 1],
-			[3330, 375, 1],
-			[3400, 375, 1],
-			[3470, 375, 1],
-			[3540, 375, 1],
-			[3610, 375, 2]
+			[3070, 375, 0],
+			[3140, 375, 1],
+			[3210, 375, 1],
+			[3280, 375, 1],
+			[3350, 375, 1],
+			[3420, 375, 1],
+			[3490, 375, 1],
+			[3560, 375, 1],
+			[3630, 375, 1],
+			[3700, 375, 1],
+			[3770, 375, 1],
+			[3840, 375, 1],
+			[3910, 375, 2]
 			]
 
+		
 		# Go through the array above and create the platforms.
 		for temp in platforms:
 			platform = Platform(temp[0], temp[1], temp[2])
 			platform.player = self.player
 			#print(block.rect.x, block.rect.y)
 			self.platform_list.add(platform)
+		
+		
+		# 2D array, containing the type, direction, min/max values, and other coordinate for each moving platform.
+		moving_platforms = [
+			[0, True, 2050, 2820, 520]
+			]
+		
+		# Go through the array above and create the moving platforms.
+		for temp in moving_platforms:
+			platform = MovingPlatform(temp[0], temp[1], temp[2], temp[3], temp[4])
+			platform.player = self.player
+			self.platform_list.add(platform)
+
+		
+				
+
+		
+
