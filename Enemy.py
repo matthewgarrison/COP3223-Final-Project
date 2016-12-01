@@ -2,7 +2,7 @@ import pygame
 
 class Enemy(pygame.sprite.Sprite):
 
-	def_init_(self, x, y, type):
+	def _init_(self, x, y, type):
 		
 		super()._init_()
 		
@@ -20,9 +20,9 @@ class Enemy(pygame.sprite.Sprite):
 		self.boundary_left = 0
 		self.boundary_right = 0
 		
-		# Player/level references 
-        	self.level = None
-       		self.player = None
+		# Player/level references
+		self.level = None
+		self.player = None
 		
 	def update(self):
 		self.calc_grav()
@@ -31,7 +31,7 @@ class Enemy(pygame.sprite.Sprite):
 		self.rect.x += self.change_x
 		
 		# Check to see if patrol limit has been reached
-        	cur_pos = self.rect.x - self.level.world_shift
+		cur_pos = self.rect.x - self.level.world_shift
         	# Update enemy for case where leftmost boundary is reached
 		if cur_pos < self.boundary_left:
 			self.change_x *= -1
@@ -73,13 +73,3 @@ class Enemy(pygame.sprite.Sprite):
 					if type == 0: self.image = pygame.image.load("Assets/Enemy/BlueSlimeFrame1.png")
 					else : self.image = pygame.image.load("Assets/Enemy/RedSlimeFrame1.png")
 				self.move_ani_count = 0
-				
-		# Check if player collides with the enemy
-        	hit = pygame.sprite.collide_rect(self, self.player)
-        	# Player did collide with enemy
-        	if hit:
-			# Only declare enemy as dead if the player is swinging 
-			if self.is_swinging_sword = True:
-				self.change_x = 0
-		
-		
