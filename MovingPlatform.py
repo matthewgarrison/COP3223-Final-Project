@@ -1,5 +1,7 @@
 import pygame
 
+from Platform import Platform
+
 class MovingPlatform(Platform):
     
     def __init__(self, x, y, type):
