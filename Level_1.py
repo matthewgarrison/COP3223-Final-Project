@@ -1,17 +1,19 @@
+import pygame
+
+from Enemy import Enemy
 from Level import Level
 from Platform import Platform
-from Background import Background
 from Portal import Portal
 
 class Level_1(Level):
 	
-	def __init__(self, player, screen_wdith, screen_height):		
+	def __init__(self, screen_wdith, screen_height) :		
 		# Call the parent constructor.
-		Level.__init__(self, player)
+		super().__init__()
 
 		# The borders of the level.
 		self.left_edge = 0
-		self.right_edge = 4000
+		self.right_edge = 4590
 		self.top_edge = -500
 		self.bottom_edge = 1000
 		# Where the camera stops moving on this level.
@@ -20,13 +22,17 @@ class Level_1(Level):
 		self.shift_up_bound = self.top_edge + (screen_height/2)
 		self.shift_down_bound = self.bottom_edge - (screen_height/2)
 
-		# Where the player starts the level.
-		self.start_x = 20
-		self.start_y = 212
+		# Where the player starts on this level.
+		self.starting_x = 20
+		self.starting_y = 212
+		self.starting_right = True
 
 		# The portal to the next level.
-		self.portal = Portal(3550, 198)
+		self.portal = Portal(4480, -60)
 		self.portal_list.add(self.portal)
+
+		# Music for this level.
+		self.music = "Assets/Music/Level_1.mp3"		
 		
 		# 2D array, containing the x and y coordinates and type for each platform.
 		platforms = [
@@ -43,61 +49,63 @@ class Level_1(Level):
 			[700, 288, 1],
 			[770, 288, 2],
 
-			[900, 288, 0],
-			[970, 288, 2],
+			[980, 168, 0],
+			[1050, 168, 2],
 
-			[1110, 288, 0],
-			[1180, 288, 2],
+			[1340, 168, 0],
+			[1410, 168, 2],
 
-			[1320, 350, 0],
-			[1390, 350, 2],
+			[1650, 168, 0],
+			[1720, 168, 1],
+			[1790, 168, 1],
+			[1860, 168, 1],
+			[1930, 168, 1],
+			[2000, 168, 1],
+			[2070, 168, 1],
+			[2140, 168, 2],
 
-			[1510, 375, 0],
-			[1580, 375, 1],
-			[1650, 375, 1],
-			[1720, 375, 2],
+			[2470, 330, 0],
+			[2540, 330, 2],
 
-			[1880, 450, 0],
-			[1950, 450, 1],
-			[2020, 450, 1],
-			[2090, 450, 2],
+			[2770, 350, 0],
+			[2840, 350, 1],
+			[2910, 350, 1],
+			[2980, 350, 1],
+			[3050, 350, 1],
+			[3120, 350, 1],
+			[3190, 350, 2],
 
-			[2330, 520, 0],
-			[2400, 520, 1],
-			[2470, 520, 1],
-			[2540, 520, 1],
-			[2610, 520, 1],
-			[2680, 520, 1],
-			[2750, 520, 1],
-			[2820, 520, 2],
+			[3400, 230, 0],
+			[3470, 230, 2],
 
-			[2910, 450, 0],
-			[2980, 450, 2],
-
-			[3070, 375, 0],
-			[3140, 375, 1],
-			[3210, 375, 1],
-			[3280, 375, 1],
-			[3350, 375, 1],
-			[3420, 375, 1],
-			[3490, 375, 1],
-			[3560, 375, 1],
-			[3630, 375, 1],
-			[3700, 375, 1],
-			[3770, 375, 1],
-			[3840, 375, 1],
-			[3910, 375, 2]
+			[3680, 110, 0],
+			[3750, 110, 1],
+			[3820, 110, 1],
+			[3890, 110, 1],
+			[3960, 110, 1],
+			[4030, 110, 1],
+			[4100, 110, 1],
+			[4170, 110, 1],
+			[4240, 110, 1],
+			[4310, 110, 1],
+			[4380, 110, 1],
+			[4450, 110, 1],
+			[4520, 110, 2]
 			]
 
-		
 		# Go through the array above and create the platforms.
 		for temp in platforms:
 			platform = Platform(temp[0], temp[1], temp[2])
-			platform.player = self.player
-			#print(block.rect.x, block.rect.y)
 			self.platform_list.add(platform)
-		
-				
 
-		
+		# A 2D array containing the min x, max x, and y coordinates and color of each enemy.
+		enemies = [
+			[1650, 2210, 138, True],
+			[2770, 3260, 320, False],
+			[3680, 4310, 80, True],
+			]
 
+		# Go through the array above and create the enemies.
+		for temp in enemies :
+			enemy = Enemy(temp[0], temp[1], temp[2], temp[3])
+			self.enemy_list.add(enemy)
