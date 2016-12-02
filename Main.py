@@ -17,22 +17,20 @@ SCREEN_MID_X = SCREEN_WIDTH/2
 SCREEN_HEIGHT = 500
 SCREEN_MID_Y = SCREEN_HEIGHT/2	
 
+# Reset world shift and move the player back to start.
 def lose_a_life(player, current_level) :
-	# Reset world shift and move the player back to start.
 	current_level.shift_world(current_level.world_shift_x, current_level.world_shift_y)
 	player.lose_a_life(current_level.starting_right)
 
 def is_on_portal(player, current_level) :
-	if player.rect.left >= current_level.portal.rect.left and player.rect.right <= current_level.portal.rect.right and player.rect.top >= current_level.portal.rect.top - 42 and player.rect.bottom <= current_level.portal.rect.bottom :
+	if (player.rect.left >= current_level.portal.rect.left and player.rect.right <= current_level.portal.rect.right 
+		and player.rect.top >= current_level.portal.rect.top - 42 and player.rect.bottom <= current_level.portal.rect.bottom) :
 		return True
 	else : return False	
 
 def main():
 	pygame.init()
-	font_small = pygame.font.SysFont("monospace", 5, True)
-	font_medium = pygame.font.SysFont("monospace", 25, True)
-	font_large = pygame.font.SysFont("monospace", 175, True)
-	
+
 	# Set the height and width of the screen.
 	size = [SCREEN_WIDTH, SCREEN_HEIGHT]
 	screen = pygame.display.set_mode(size)
@@ -62,7 +60,7 @@ def main():
 	end_game_state = 0
 
 	is_paused = False
-	# This is used to delay changing between paused and unpaused or vice vera because
+	# This is used to delay changing between paused and unpaused or vice versa because
 	# of speed issues.
 	can_change_pause = True
 	pause_menu = pygame.Surface((700, 200))
@@ -73,12 +71,18 @@ def main():
 	pygame.mixer.music.load(current_level.music)
 	pygame.mixer.music.play(-1)
 
+	# Create the fonts for onscreen writing.
+	font_small = pygame.font.SysFont("monospace", 5, True)
+	font_medium = pygame.font.SysFont("monospace", 25, True)
+	font_large = pygame.font.SysFont("monospace", 175, True)
+
 	# Used to manage how fast the screen updates.
 	clock = pygame.time.Clock()
 
 	# Main game loop.
 	while not done :
 		if is_paused : 
+			# When paused, all we do is check if they quit or unpause.
 			for event in pygame.event.get() :
 				if event.type == pygame.QUIT :
 					done = True
@@ -94,7 +98,7 @@ def main():
 					
 				if event.type == pygame.KEYDOWN :
 					if event.key == pygame.K_p :
-						if can_change_pause :is_paused = True
+						if can_change_pause : is_paused = True
 					if event.key == pygame.K_LEFT :
 						player.go_left()
 					if event.key == pygame.K_RIGHT :
@@ -105,8 +109,6 @@ def main():
 						if current_level_num != len(level_list)-1 :
 							# Go to next level.
 							current_level_num += 1
-							# Reset world shift.
-							#current_level.shift_world(current_level.world_shift_x, current_level.world_shift_y)
 							current_level = level_list[current_level_num]
 							# Reset the player.
 							player.current_level = current_level
@@ -122,7 +124,7 @@ def main():
 							done = True
 							end_game_state = 2
 					if event.key == pygame.K_SPACE :
-						# You can't swing your sowrd if you already are swinging or are moving.
+						# You can't swing your sword if you already are swinging or are moving.
 						if not player.is_swinging_sword and player.change_x ==0 and player.change_y == 0 : 
 							player.swing_sword()
 						
@@ -140,13 +142,14 @@ def main():
 			enemy_hit_list = pygame.sprite.spritecollide(player,current_level.enemy_list, False)
 			for enemy in enemy_hit_list :
 				if not player.is_swinging_sword :
-				# If the player isn't swinging his sword, then he takes damage.
+					# If the player isn't swinging his sword, then he takes damage.
 					if not player.is_damaged :
 						player.health -= 1
 						player.is_damaged = True
 				else :
 					# If he is, we have to check which side the enemy hit.
-					if (player.facing_right and player.rect.right < enemy.rect.right) or (not player.facing_right and player.rect.left > enemy.rect.left) :
+					if (player.facing_right and player.rect.right < enemy.rect.right) or (not player.facing_right and 
+						player.rect.left > enemy.rect.left) :
 						# We hit the enemy with the sword.
 						if not enemy.is_damaged :
 							enemy.health -= 1
@@ -155,7 +158,7 @@ def main():
 							if enemy.health == 0 :
 								current_level.enemy_list.remove(enemy)
 					else :
-						# The enemy hit out back, not our sword, so we take damage.
+						# The enemy hit our back, not our sword, so we take damage.
 						if not player.is_damaged :
 							player.health -= 1
 							player.is_damaged = True
@@ -224,7 +227,7 @@ def main():
 
 		# Writing the player's lives and health to the screen.
 		label = font_medium.render("Lives: " + str(player.lives), True, BLACK)
-		screen.blit(label, (5, 5))
+		screen.blit(label, (20, 5))
 		label = font_medium.render("Health: ", True, BLACK)
 		screen.blit(label, (5, 30))
 		label = font_medium.render(player.health_to_string(), True, RED)

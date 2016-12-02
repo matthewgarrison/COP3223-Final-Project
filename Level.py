@@ -8,6 +8,7 @@ WHITE = (255, 255, 255)
 class Level():
  
 	def __init__(self):
+		# Create the SpriteGroups for the platforms, enemies, and portal.
 		self.platform_list = pygame.sprite.Group()
 		self.enemy_list = pygame.sprite.Group()
 		self.damaged_enemy_list = pygame.sprite.Group()
@@ -15,6 +16,7 @@ class Level():
 		# to draw a SpriteGroup than a single Sprite.
 		self.portal_list = pygame.sprite.Group()
 		
+		# Set the background.
 		self.background = Background("Assets/background.png", -1600, -2000)
 
 		# How far this world has been scrolled left/right and up/down. (Because the world moves offscreen, 
@@ -32,7 +34,7 @@ class Level():
 				self.damaged_enemy_list.add(enemy)
 				self.enemy_list.remove(enemy)
 		for enemy in self.damaged_enemy_list :
-			if enemy.damage_count % 3 == 0 :
+			if enemy.damage_timer % 3 == 0 :
 				self.enemy_list.add(enemy)
 				self.damaged_enemy_list.remove(enemy)
 		self.enemy_list.update()
@@ -57,7 +59,7 @@ class Level():
 		self.background.rect.x -= shift_x
 		self.background.rect.y -= shift_y
  		
-		# Go through all the sprite lists and shift.
+		# Go through all the sprite lists and shift them.
 		for platform in self.platform_list :
 			platform.rect.x -= shift_x
 			platform.rect.y -= shift_y

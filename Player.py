@@ -20,18 +20,20 @@ class Player(pygame.sprite.Sprite):
 		self.change_x = 0
 		self.change_y = 0
 
-		# Initialize movement animation counter, boolean and direction.
-		self.move_ani_count = 0
+		# Initialize movement animation timer and direction.
+		self.move_ani_timer = 0
 		self.facing_right = True
 
-		# Initialize sword swinging variables.
-		self.sword_ani_count = 0
+		# Initialize sword swinging animation timer and boolean.
+		self.sword_ani_timer = 0
 		self.is_swinging_sword = False
  
+ 		# Set the current level (used for collisions with platforms) and the player's starting position.
 		self.current_level = curr_level
 		self.rect.x = self.current_level.starting_x
 		self.rect.y = self.current_level.starting_y
 
+		# Set lives and health.
 		self.lives = STARTING_LIVES
 		self.health = STARTING_HEALTH
 
@@ -40,6 +42,7 @@ class Player(pygame.sprite.Sprite):
 		self.damage_count = 0
 
 	def update(self) :
+		# If damaged, update the the timer. Once it reaches 50, the invulnerability wears off.
 		if self.is_damaged :
 			self.damage_count += 1
 			if self.damage_count >= 50 :
@@ -75,25 +78,25 @@ class Player(pygame.sprite.Sprite):
 
 		# Movement animation.
 		if self.change_x != 0 and self.change_y == 0 :
-			self.move_ani_count += 1
-			if self.move_ani_count == 5 :
+			self.move_ani_timer += 1
+			if self.move_ani_timer == 5 :
 				if self.facing_right : self.image = pygame.image.load("Assets/Player/Right2.png")
 				else : self.image = pygame.image.load("Assets/Player/Left2.png")
-			elif self.move_ani_count == 10:
+			elif self.move_ani_timer == 10:
 				if self.facing_right : self.image = pygame.image.load("Assets/Player/Right3.png")
 				else : self.image = pygame.image.load("Assets/Player/Left3.png")
-			elif self.move_ani_count == 15 :
+			elif self.move_ani_timer == 15 :
 				if self.facing_right : self.image = pygame.image.load("Assets/Player/Right1.png")
 				else : self.image = pygame.image.load("Assets/Player/Left1.png")
-				self.move_ani_count = 0
+				self.move_ani_timer	 = 0
 
 		# Sword animation.
 		if self.is_swinging_sword :
-			self.sword_ani_count += 1
-			if self.sword_ani_count > 10 :
+			self.sword_ani_timer += 1
+			if self.sword_ani_timer > 10 :
 				# Finish the sword animation.
 				self.is_swinging_sword = False
-				self.sword_ani_count = 0
+				self.sword_ani_timer = 0
 				x = self.rect.x
 				y = self.rect.y
 				if self.facing_right : self.image = pygame.image.load("Assets/Player/Right1.png")
@@ -136,7 +139,7 @@ class Player(pygame.sprite.Sprite):
 
 	def stop(self):
 		self.change_x = 0
-		self.move_ani_count = 0
+		self.move_ani_timer = 0
 		if self.facing_right : self.image = pygame.image.load("Assets/Player/Right1.png")
 		else : self.image = pygame.image.load("Assets/Player/Left1.png")
 
@@ -163,6 +166,7 @@ class Player(pygame.sprite.Sprite):
 		if facing_right : self.image = self.image = pygame.image.load("Assets/Player/Right1.png")
 		else : self.image = self.image = pygame.image.load("Assets/Player/Left1.png")
 
+	# Returns a string containing the health of the enemy (used to display the enemy's health onscreen).
 	def health_to_string(self) :
 		s = ""
 		for i in range(self.health*2) : s += BLACK_SQUARE

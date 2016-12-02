@@ -98,7 +98,7 @@ class Level_1(Level):
 			platform = Platform(temp[0], temp[1], temp[2])
 			self.platform_list.add(platform)
 
-		# A 2D array containing the min x, max x, and y coordinates and color of each enemy.
+		# A 2D array containing the min-x, max-x, and y coordinates and color of each enemy.
 		enemies = [
 			[1650, 2210, 138, True],
 			[2770, 3260, 320, False],
