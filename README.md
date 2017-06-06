@@ -1,6 +1,6 @@
 # COP3223-Final-Project
 
-The final project for COP3223 (Intro to Programming with C). Completed in collaration by Matthew Garrison, Minh Pham, and Michael Cunada.
+The final project for COP3223 (Intro to Programming with C). Completed in collaboration by Matthew Garrison, Minh Pham, and Michael Cunada.
 
 Features to be added:
 * Moving platforms.
